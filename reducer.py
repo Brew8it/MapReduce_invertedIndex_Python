@@ -5,7 +5,8 @@ index = {}
 
 for line in stdin:
     word, postings = line.split('\t')
-
+    print("%s" % word)
+    print("%s" % postings)
     index.setdefault(word, {})
 
     for posting in postings.split(','):
@@ -20,4 +21,4 @@ for word in index:
                      for doc_id in index[word]]
 
     postings = ','.join(postings_list)
-    print('%s\t%s' % (word, postings))
+    #print('%s\t%s' % (word, postings))
