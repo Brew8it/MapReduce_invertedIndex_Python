@@ -1,24 +1,21 @@
 from sys import stdin
-import re
+from collections import defaultdict
 
 index = {}
+dictionary = {}
+
 
 for line in stdin:
     word, postings = line.split('\t')
-    print("%s" % word)
-    print("%s" % postings)
-    index.setdefault(word, {})
 
-    for posting in postings.split(','):
-        doc_id, count = posting.split(':')
-        count = int(count)
+    dictionary.setdefault(word, [])
 
-        index[word].setdefault(doc_id, 0)
-        index[word][doc_id] += count
+    if word not in dictionary:
+        dictionary[word] = postings
+    else:
+        dictionary[word].append(postings)
 
-for word in index:
-    postings_list = ["%s:%d" % (doc_id, index[word][doc_id])
-                     for doc_id in index[word]]
 
-    postings = ','.join(postings_list)
-    #print('%s\t%s' % (word, postings))
+for key, value in dictionary.iteritems():
+    print("{} , {}").format(key,value)
+#print(dictionary['is'])
