@@ -10,13 +10,11 @@ for line in stdin:
 
     postings = postings.replace("\n", "")
 
-    doc_id, number = postings.split(':')
-
-    #dictionary.setdefault(word, [])
+    dictionary.setdefault(word, [])
     if word not in dictionary:
-            dictionary[word] = postings
-        else:
-            dictionary[word].append(postings)
+        dictionary[word] = postings
+    else:
+        dictionary[word].append(postings)
 
 ResultDict = OrderedDict(sorted(dictionary.items(), key=lambda t: t[0]))
 
