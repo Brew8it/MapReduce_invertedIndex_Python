@@ -1,5 +1,5 @@
 from sys import stdin
-from collections import defaultdict
+from collections import OrderedDict
 
 index = {}
 dictionary = {}
@@ -8,6 +8,8 @@ dictionary = {}
 for line in stdin:
     word, postings = line.split('\t')
 
+    postings = postings.replace("\n", "")
+
     dictionary.setdefault(word, [])
 
     if word not in dictionary:
@@ -15,7 +17,7 @@ for line in stdin:
     else:
         dictionary[word].append(postings)
 
+ResultDict = OrderedDict(sorted(dictionary.items(), key=lambda t: t[0]))
 
-for key, value in dictionary.iteritems():
-    print("{} , {}").format(key,value)
-#print(dictionary['is'])
+for key, value in ResultDict.iteritems():
+    print("{}\t{}").format(key,value)
