@@ -1,23 +1,25 @@
 from sys import stdin
-from collections import OrderedDict
-
 index = {}
-dictionary = {}
-
 
 for line in stdin:
     word, postings = line.split('\t')
 
     postings = postings.replace("\n", "")
 
-    dictionary.setdefault(word, [])
+    doc_id, number = postings.split(':')
 
-    if word not in dictionary:
-        dictionary[word] = postings
+    index.setdefault(word,{})
+    index[word].setdefault(doc_id, [])
+
+    if word not in index:
+        index[word][doc_id] = number
     else:
-        dictionary[word].append(postings)
+        index[word][doc_id].append(number)
 
-ResultDict = OrderedDict(sorted(dictionary.items(), key=lambda t: t[0]))
+for word in index:
+    postings_list = ["%s:%s" % (doc_id, index[word][doc_id])
+                     for doc_id in index[word]]
 
-for key, value in ResultDict.iteritems():
-    print("{}\t{}").format(key,value)
+    postings = ','.join(postings_list)
+    print('%s\t%s' % (word, postings))
+
