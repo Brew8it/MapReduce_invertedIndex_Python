@@ -21,5 +21,5 @@ for word in index:
                      for doc_id in index[word]]
 
     postings = ','.join(postings_list)
+    postings = postings.replace("'", "")
     print('%s\t%s' % (word, postings))
-
