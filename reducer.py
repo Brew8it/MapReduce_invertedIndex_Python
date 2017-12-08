@@ -1,13 +1,14 @@
+#!/usr/bin/env python
 from collections import OrderedDict
+
 from sys import stdin
 index = {}
 
 for line in stdin:
     word, postings = line.split('\t')
 
-    postings = postings.replace("\n", "")
-
-    doc_id, number = postings.split(':')
+    postings = postings.replace("\n", "").replace("//localhost:54310/in/","").replace("hdfs:","")
+    doc_id, number = postings.split(':',1)
 
     index.setdefault(word,{})
     index[word].setdefault(doc_id, [])
