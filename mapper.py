@@ -17,5 +17,3 @@ for line in sys.stdin:
 
 for i in range(len(indexList)):
     print("%s\t%s:%s" % (words[i],doc_id,indexList[i]))
-
-
